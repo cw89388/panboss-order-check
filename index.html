@@ -678,115 +678,34 @@ button {
 ================================================== */
 
 
-const customers = [
+let customers = [];
 
-    {
-        id: "王小明",
+async function loadCustomers() {
+  try {
+    const response = await fetch("./orders.json?v=" + Date.now());
 
-        orders: [
-
-            {
-                product: "紅蟳",
-                specification: "280g",
-                quantity: 2,
-                price: 280,
-                status: "已到貨"
-            },
-
-            {
-                product: "大草蝦",
-                specification: "31/40",
-                quantity: 2,
-                price: 350,
-                status: "已到貨"
-            },
-
-            {
-                product: "北海道干貝",
-                specification: "S級",
-                quantity: 1,
-                price: 650,
-                status: "尚未到貨"
-            }
-
-        ]
-
-    },
-
-
-    {
-        id: "王大明",
-
-        orders: [
-
-            {
-                product: "白蝦",
-                specification: "31/40",
-                quantity: 2,
-                price: 350,
-                status: "已到貨"
-            }
-
-        ]
-
-    },
-
-
-    {
-        id: "王小強",
-
-        orders: [
-
-            {
-                product: "龍蝦",
-                specification: "500g",
-                quantity: 1,
-                price: 980,
-                status: "尚未到貨"
-            }
-
-        ]
-
-    },
-
-
-    {
-        id: "陳小明",
-
-        orders: [
-
-            {
-                product: "干貝",
-                specification: "L級",
-                quantity: 2,
-                price: 600,
-                status: "已到貨"
-            }
-
-        ]
-
-    },
-
-
-    {
-        id: "小美",
-
-        orders: [
-
-            {
-                product: "阿根廷紅蝦",
-                specification: "2L",
-                quantity: 1,
-                price: 850,
-                status: "尚未到貨"
-            }
-
-        ]
-
+    if (!response.ok) {
+      throw new Error("讀取 orders.json 失敗");
     }
 
-];
+    const data = await response.json();
 
+    customers = data.customers || [];
+
+    console.log("訂單資料載入成功：", customers.length, "位會員");
+
+  } catch (error) {
+    console.error(error);
+
+    document.getElementById("searchResults").innerHTML = `
+      <div class="message">
+        ⚠️ 目前無法載入訂單資料，請稍後再試。
+      </div>
+    `;
+  }
+}
+
+loadCustomers();
 
 
 /* ==================================================
