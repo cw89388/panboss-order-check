@@ -3,280 +3,584 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>盤老板海鮮水產｜訂單查詢</title>
+<title>盤老板海鮮水產｜訂單查詢</title>
 
-    <style>
+<style>
 
-        * {
-            box-sizing: border-box;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            padding: 20px;
-            background: #f4f6f8;
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                "Microsoft JhengHei",
-                Arial,
-                sans-serif;
-            color: #333;
-        }
+body {
 
-        .container {
-            width: 100%;
-            max-width: 520px;
-            margin: 0 auto;
-        }
+    margin: 0;
 
-        /* ===== 標題 ===== */
+    padding: 20px;
 
-        .header {
-            text-align: center;
-            padding: 30px 10px 25px;
-        }
+    background: #f4f6f8;
 
-        .logo {
-            font-size: 52px;
-            margin-bottom: 8px;
-        }
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Microsoft JhengHei",
+        Arial,
+        sans-serif;
 
-        h1 {
-            margin: 0;
-            font-size: 27px;
-            font-weight: 700;
-        }
+    color: #333;
+}
 
-        .subtitle {
-            margin-top: 8px;
-            color: #777;
-            font-size: 15px;
-        }
 
-        /* ===== 查詢區 ===== */
+.container {
 
-        .search-card {
-            background: #ffffff;
-            border-radius: 18px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        }
+    width: 100%;
 
-        .search-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
+    max-width: 520px;
 
-        .search-description {
-            font-size: 14px;
-            color: #777;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
+    margin: 0 auto;
+}
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
 
-        input {
-            width: 100%;
-            padding: 14px 15px;
-            border: 1px solid #d9d9d9;
-            border-radius: 10px;
-            font-size: 16px;
-            outline: none;
-            margin-bottom: 15px;
-        }
+/* =========================
+   標題
+========================= */
 
-        input:focus {
-            border-color: #555;
-        }
+.header {
 
-        button {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            background: #222;
-            color: white;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    text-align: center;
 
-        button:active {
-            transform: scale(0.98);
-        }
+    padding: 25px 10px 20px;
 
-        /* ===== 查詢結果 ===== */
+}
 
-        #result {
-            margin-top: 20px;
-        }
+.logo {
 
-        .result-header {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-        }
+    font-size: 48px;
 
-        .customer-name {
-            font-size: 20px;
-            font-weight: bold;
-        }
+}
 
-        .result-count {
-            margin-top: 5px;
-            color: #777;
-            font-size: 14px;
-        }
+h1 {
 
-        /* ===== 訂單卡片 ===== */
+    margin: 8px 0 5px;
 
-        .order-card {
-            background: white;
-            border-radius: 15px;
-            padding: 18px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-        }
+    font-size: 27px;
 
-        .product-name {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+}
 
-        .product-info {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.8;
-        }
+.subtitle {
 
-        .price {
-            text-align: right;
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
+    color: #777;
 
-        /* ===== 狀態 ===== */
+    font-size: 15px;
 
-        .status {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+}
 
-        .arrived {
-            background: #e8f7ed;
-            color: #16803c;
-        }
 
-        .waiting {
-            background: #fff4dc;
-            color: #9a6500;
-        }
+/* =========================
+   查詢區
+========================= */
 
-        /* ===== 金額 ===== */
+.search-card {
 
-        .total-card {
-            background: #222;
-            color: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 15px;
-        }
+    background: white;
 
-        .total-title {
-            font-size: 14px;
-            opacity: 0.8;
-        }
+    border-radius: 18px;
 
-        .total-price {
-            font-size: 28px;
-            font-weight: bold;
-            margin-top: 5px;
-        }
+    padding: 24px;
 
-        /* ===== 找不到 ===== */
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.08);
 
-        .not-found {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            color: #777;
-        }
+}
 
-        .not-found-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
 
-        /* ===== 底部 ===== */
+.search-title {
 
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            margin-bottom: 20px;
-            font-size: 13px;
-            color: #999;
-            line-height: 1.7;
-        }
+    font-size: 20px;
 
-    </style>
+    font-weight: bold;
+
+    margin-bottom: 8px;
+
+}
+
+
+.search-description {
+
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+
+}
+
+
+label {
+
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+
+}
+
+
+input {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border:
+
+        1px solid #d9d9d9;
+
+    border-radius: 10px;
+
+    font-size: 17px;
+
+    outline: none;
+
+    margin-bottom: 12px;
+
+}
+
+
+input:focus {
+
+    border-color: #333;
+
+}
+
+
+button {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #222;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================
+   搜尋結果
+========================= */
+
+#searchResults {
+
+    margin-top: 20px;
+
+}
+
+
+.search-count {
+
+    margin-bottom: 10px;
+
+    color: #777;
+
+    font-size: 14px;
+
+}
+
+
+.customer-button {
+
+    width: 100%;
+
+    background: white;
+
+    color: #222;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 18px;
+
+    margin-bottom: 10px;
+
+    text-align: left;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.06);
+
+    cursor: pointer;
+
+}
+
+
+.customer-button:hover {
+
+    transform: translateY(-1px);
+
+}
+
+
+.customer-icon {
+
+    font-size: 22px;
+
+    margin-right: 8px;
+
+}
+
+
+.customer-id {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+}
+
+
+/* =========================
+   訂單區
+========================= */
+
+#orderPage {
+
+    display: none;
+
+    margin-top: 20px;
+
+}
+
+
+.back-button {
+
+    background: transparent;
+
+    color: #555;
+
+    border: none;
+
+    text-align: left;
+
+    padding: 5px 0 15px;
+
+    font-size: 15px;
+
+}
+
+
+.customer-header {
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.06);
+
+}
+
+
+.customer-header-title {
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+}
+
+
+.customer-header-subtitle {
+
+    color: #777;
+
+    margin-top: 5px;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================
+   分類標題
+========================= */
+
+.section-title {
+
+    padding: 13px 15px;
+
+    border-radius: 12px;
+
+    margin-top: 15px;
+
+    margin-bottom: 10px;
+
+    font-weight: bold;
+
+}
+
+
+.arrived-title {
+
+    background: #e8f7ed;
+
+    color: #16803c;
+
+}
+
+
+.waiting-title {
+
+    background: #eef1f4;
+
+    color: #66717b;
+
+}
+
+
+/* =========================
+   商品卡片
+========================= */
+
+.order-card {
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 18px;
+
+    margin-bottom: 10px;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.06);
+
+}
+
+
+.status {
+
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+
+}
+
+
+.status-arrived {
+
+    background: #2d9253;
+
+    color: white;
+
+}
+
+
+.status-waiting {
+
+    background: #737e87;
+
+    color: white;
+
+}
+
+
+.product-name {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+}
+
+
+.product-info {
+
+    margin-top: 8px;
+
+    color: #666;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+}
+
+
+.price {
+
+    text-align: right;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    margin-top: 10px;
+
+}
+
+
+/* =========================
+   總金額
+========================= */
+
+.total-card {
+
+    background: #202122;
+
+    color: white;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    margin-top: 15px;
+
+}
+
+
+.total-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 10px 0;
+
+    border-bottom:
+        1px solid #444;
+
+}
+
+
+.total-row:last-child {
+
+    border-bottom: none;
+
+}
+
+
+.total-number {
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+}
+
+
+.grand-total {
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+}
+
+
+/* =========================
+   找不到
+========================= */
+
+.message {
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    color: #777;
+
+}
+
+
+.footer {
+
+    text-align: center;
+
+    color: #999;
+
+    font-size: 13px;
+
+    margin-top: 30px;
+
+    line-height: 1.7;
+
+}
+
+</style>
 
 </head>
 
 
 <body>
 
+
 <div class="container">
 
 
-    <!-- ==================== -->
-    <!-- 網站標題 -->
-    <!-- ==================== -->
+<!-- =========================
+     網站標題
+========================= -->
 
-    <div class="header">
+<div class="header">
 
-        <div class="logo">
-            🦀
-        </div>
-
-        <h1>
-            盤老板海鮮水產
-        </h1>
-
-        <div class="subtitle">
-            線上訂單查詢
-        </div>
-
+    <div class="logo">
+        🦀
     </div>
 
+    <h1>
+        盤老板海鮮水產
+    </h1>
+
+    <div class="subtitle">
+        線上訂單查詢
+    </div>
+
+</div>
 
 
-    <!-- ==================== -->
-    <!-- 查詢區 -->
-    <!-- ==================== -->
+
+<!-- =========================
+     搜尋頁
+========================= -->
+
+<div id="searchPage">
 
     <div class="search-card">
 
@@ -291,7 +595,8 @@
 
             <br>
 
-            不需要輸入電話或其他資料。
+            系統會顯示符合的暱稱，
+            請選擇您的帳號。<br>
             系統偶爾可能出錯或是未入單，<br>
             如有疑慮請私訊官方小編 @912macpp
 
@@ -304,42 +609,57 @@
 
 
         <input
+            id="searchInput"
             type="text"
-            id="customerName"
-            placeholder="例如：王小明"
+            placeholder="例如：王"
             autocomplete="off"
         >
 
 
-        <button onclick="searchOrder()">
+        <button onclick="searchCustomers()">
 
-            🔍 查詢訂單
+            🔍 搜尋
 
         </button>
 
     </div>
 
 
+    <div id="searchResults"></div>
 
-    <!-- ==================== -->
-    <!-- 查詢結果 -->
-    <!-- ==================== -->
-
-    <div id="result"></div>
+</div>
 
 
 
-    <!-- ==================== -->
-    <!-- 頁尾 -->
-    <!-- ==================== -->
+<!-- =========================
+     訂單頁
+========================= -->
 
-    <div class="footer">
+<div id="orderPage">
 
-        盤老板海鮮水產<br>
+    <button
+        class="back-button"
+        onclick="backToSearch()"
+    >
 
-        訂單資料僅供查詢使用
+        ← 返回搜尋
 
-    </div>
+    </button>
+
+
+    <div id="orderContent"></div>
+
+</div>
+
+
+
+<div class="footer">
+
+    盤老板海鮮水產<br>
+
+    訂單資料僅供查詢使用
+
+</div>
 
 
 </div>
@@ -350,51 +670,119 @@
 
 
 /* ==================================================
-   測試訂單資料
+   測試客戶資料
 
-   目前先用假資料測試網站。
+   目前先使用假資料。
 
-   等網站完成後，
-   這裡會改成真正的飛比+1訂單資料。
+   之後會換成飛比+1真正的資料。
 ================================================== */
 
 
-const orders = [
+const customers = [
 
     {
-        customer: "王小明",
-        product: "紅蟳",
-        specification: "280g",
-        quantity: 2,
-        price: 280,
-        status: "已到貨"
+        id: "王小明",
+
+        orders: [
+
+            {
+                product: "紅蟳",
+                specification: "280g",
+                quantity: 2,
+                price: 280,
+                status: "已到貨"
+            },
+
+            {
+                product: "大草蝦",
+                specification: "31/40",
+                quantity: 2,
+                price: 350,
+                status: "已到貨"
+            },
+
+            {
+                product: "北海道干貝",
+                specification: "S級",
+                quantity: 1,
+                price: 650,
+                status: "尚未到貨"
+            }
+
+        ]
+
     },
 
-    {
-        customer: "王小明",
-        product: "大草蝦",
-        specification: "31/40",
-        quantity: 2,
-        price: 350,
-        status: "已到貨"
-    },
 
     {
-        customer: "王小明",
-        product: "北海道干貝",
-        specification: "S級",
-        quantity: 1,
-        price: 650,
-        status: "尚未到貨"
+        id: "王大明",
+
+        orders: [
+
+            {
+                product: "白蝦",
+                specification: "31/40",
+                quantity: 2,
+                price: 350,
+                status: "已到貨"
+            }
+
+        ]
+
     },
 
+
     {
-        customer: "小美",
-        product: "阿根廷紅蝦",
-        specification: "2L",
-        quantity: 1,
-        price: 850,
-        status: "尚未到貨"
+        id: "王小強",
+
+        orders: [
+
+            {
+                product: "龍蝦",
+                specification: "500g",
+                quantity: 1,
+                price: 980,
+                status: "尚未到貨"
+            }
+
+        ]
+
+    },
+
+
+    {
+        id: "陳小明",
+
+        orders: [
+
+            {
+                product: "干貝",
+                specification: "L級",
+                quantity: 2,
+                price: 600,
+                status: "已到貨"
+            }
+
+        ]
+
+    },
+
+
+    {
+        id: "小美",
+
+        orders: [
+
+            {
+                product: "阿根廷紅蝦",
+                specification: "2L",
+                quantity: 1,
+                price: 850,
+                status: "尚未到貨"
+            }
+
+        ]
+
     }
 
 ];
@@ -402,39 +790,32 @@ const orders = [
 
 
 /* ==================================================
-   查詢訂單
+   模糊搜尋客戶
 ================================================== */
 
-function searchOrder() {
+function searchCustomers() {
 
 
-    const input =
+    const keyword =
         document
-        .getElementById("customerName")
+        .getElementById("searchInput")
         .value
-        .trim();
+        .trim()
+        .toLowerCase();
 
 
     const result =
         document
-        .getElementById("result");
+        .getElementById("searchResults");
 
 
-    /* 沒有輸入 */
-
-    if (input === "") {
+    if (keyword === "") {
 
         result.innerHTML = `
 
-            <div class="not-found">
+            <div class="message">
 
-                <div class="not-found-icon">
-                    🔍
-                </div>
-
-                <div>
-                    請先輸入姓名或 LINE 暱稱
-                </div>
+                🔍 請輸入 LINE 暱稱
 
             </div>
 
@@ -445,49 +826,31 @@ function searchOrder() {
     }
 
 
+    /* 模糊搜尋 */
 
-    /* ==================================================
-       不分大小寫搜尋
-    ================================================== */
+    const matched =
+        customers.filter(function(customer) {
 
-    const keyword =
-        input.toLowerCase();
-
-
-    const matchedOrders =
-        orders.filter(function(order) {
-
-            return order.customer
+            return customer.id
                 .toLowerCase()
                 .includes(keyword);
 
         });
 
 
+    /* 找不到 */
 
-    /* ==================================================
-       找不到
-    ================================================== */
-
-    if (matchedOrders.length === 0) {
+    if (matched.length === 0) {
 
         result.innerHTML = `
 
-            <div class="not-found">
+            <div class="message">
 
-                <div class="not-found-icon">
-                    😢
-                </div>
+                😢 找不到相符的 LINE 暱稱
 
-                <div>
-                    找不到符合的訂單
-                </div>
+                <br><br>
 
-                <br>
-
-                <small>
-                    請確認您輸入的是下單時使用的姓名或 LINE 暱稱
-                </small>
+                請確認輸入的暱稱是否正確。
 
             </div>
 
@@ -498,140 +861,93 @@ function searchOrder() {
     }
 
 
-
-    /* ==================================================
-       計算總金額
-    ================================================== */
-
-    let total = 0;
-
-
-    matchedOrders.forEach(function(order) {
-
-        total +=
-            order.quantity *
-            order.price;
-
-    });
-
-
-
-    /* ==================================================
-       產生訂單內容
-    ================================================== */
+    /* 顯示搜尋結果 */
 
     let html = `
 
-        <div class="result-header">
+        <div class="search-count">
 
-            <div class="customer-name">
-
-                ${matchedOrders[0].customer} 您好 👋
-
-            </div>
-
-            <div class="result-count">
-
-                找到 ${matchedOrders.length} 項訂購商品
-
-            </div>
+            找到 ${matched.length} 個相符的 LINE 暱稱，
+            請選擇：
 
         </div>
 
     `;
 
 
-
-    /* ==================================================
-       商品卡片
-    ================================================== */
-
-    matchedOrders.forEach(function(order) {
-
-
-        const subtotal =
-            order.quantity *
-            order.price;
-
-
-        let statusClass = "waiting";
-
-
-        if (order.status === "已到貨") {
-
-            statusClass = "arrived";
-
-        }
-
+    matched.forEach(function(customer, index) {
 
         html += `
 
-            <div class="order-card">
+            <button
+                class="customer-button"
+                onclick="showOrders(${customers.indexOf(customer)})"
+            >
 
-                <div>
+                <span class="customer-icon">
+                    👤
+                </span>
 
-                    <span class="status ${statusClass}">
+                <span class="customer-id">
+                    @${customer.id}
+                </span>
 
-                        ${order.status}
-
-                    </span>
-
-                </div>
-
-
-                <div class="product-name">
-
-                    ${order.product}
-
-                </div>
-
-
-                <div class="product-info">
-
-                    規格：${order.specification}
-
-                    <br>
-
-                    數量：${order.quantity}
-
-                    <br>
-
-                    單價：$${order.price.toLocaleString()}
-
-                </div>
-
-
-                <div class="price">
-
-                    小計 $${subtotal.toLocaleString()}
-
-                </div>
-
-            </div>
+            </button>
 
         `;
 
     });
 
 
+    result.innerHTML = html;
 
-    /* ==================================================
-       總金額
-    ================================================== */
+}
 
-    html += `
 
-        <div class="total-card">
 
-            <div class="total-title">
+/* ==================================================
+   顯示客戶訂單
+================================================== */
 
-                訂單總金額
+function showOrders(index) {
+
+
+    const customer =
+        customers[index];
+
+
+    document
+        .getElementById("searchPage")
+        .style.display = "none";
+
+
+    document
+        .getElementById("orderPage")
+        .style.display = "block";
+
+
+    let arrivedTotal = 0;
+
+    let waitingTotal = 0;
+
+    let arrivedCount = 0;
+
+    let waitingCount = 0;
+
+
+    let html = `
+
+        <div class="customer-header">
+
+            <div class="customer-header-title">
+
+                📌 查詢 ID：@${customer.id}
 
             </div>
 
-            <div class="total-price">
+            <div class="customer-header-subtitle">
 
-                $${total.toLocaleString()}
+                以下為您的訂購商品
 
             </div>
 
@@ -640,9 +956,286 @@ function searchOrder() {
     `;
 
 
+    /* =========================
+       已到貨
+    ========================= */
 
-    result.innerHTML = html;
+    const arrivedOrders =
+        customer.orders.filter(function(order) {
 
+            return order.status === "已到貨";
+
+        });
+
+
+    if (arrivedOrders.length > 0) {
+
+
+        html += `
+
+            <div class="section-title arrived-title">
+
+                📦 已到貨商品
+
+            </div>
+
+        `;
+
+
+        arrivedOrders.forEach(function(order) {
+
+
+            const subtotal =
+                order.quantity *
+                order.price;
+
+
+            arrivedTotal += subtotal;
+
+            arrivedCount += order.quantity;
+
+
+            html += createOrderCard(
+                order,
+                subtotal,
+                true
+            );
+
+        });
+
+    }
+
+
+
+    /* =========================
+       尚未到貨
+    ========================= */
+
+    const waitingOrders =
+        customer.orders.filter(function(order) {
+
+            return order.status !== "已到貨";
+
+        });
+
+
+    if (waitingOrders.length > 0) {
+
+
+        html += `
+
+            <div class="section-title waiting-title">
+
+                📅 未到貨商品
+
+            </div>
+
+        `;
+
+
+        waitingOrders.forEach(function(order) {
+
+
+            const subtotal =
+                order.quantity *
+                order.price;
+
+
+            waitingTotal += subtotal;
+
+            waitingCount += order.quantity;
+
+
+            html += createOrderCard(
+                order,
+                subtotal,
+                false
+            );
+
+        });
+
+    }
+
+
+
+    /* =========================
+       金額統計
+    ========================= */
+
+    const grandTotal =
+        arrivedTotal +
+        waitingTotal;
+
+
+    html += `
+
+        <div class="total-card">
+
+            <div class="total-row">
+
+                <div>
+
+                    已到貨合計
+
+                    <br>
+
+                    <small>
+                        ${arrivedOrders.length}
+                        項商品 /
+                        ${arrivedCount}
+                        件
+                    </small>
+
+                </div>
+
+                <div class="total-number">
+
+                    $${arrivedTotal.toLocaleString()}
+
+                </div>
+
+            </div>
+
+
+            <div class="total-row">
+
+                <div>
+
+                    未到貨合計
+
+                    <br>
+
+                    <small>
+                        ${waitingOrders.length}
+                        項商品 /
+                        ${waitingCount}
+                        件
+                    </small>
+
+                </div>
+
+                <div>
+
+                    $${waitingTotal.toLocaleString()}
+
+                </div>
+
+            </div>
+
+
+            <div class="total-row">
+
+                <div>
+
+                    <b>總金額</b>
+
+                </div>
+
+                <div class="grand-total">
+
+                    $${grandTotal.toLocaleString()}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document
+        .getElementById("orderContent")
+        .innerHTML = html;
+
+}
+
+
+
+/* ==================================================
+   商品卡片
+================================================== */
+
+function createOrderCard(
+    order,
+    subtotal,
+    arrived
+) {
+
+
+    const statusClass =
+        arrived
+        ? "status-arrived"
+        : "status-waiting";
+
+
+    return `
+
+        <div class="order-card">
+
+            <span
+                class="status ${statusClass}"
+            >
+
+                ${order.status}
+
+            </span>
+
+
+            <div class="product-name">
+
+                ${order.product}
+
+            </div>
+
+
+            <div class="product-info">
+
+                規格：
+                ${order.specification}
+
+                <br>
+
+                單價：
+                $${order.price.toLocaleString()}
+
+                |
+
+                數量：
+                ${order.quantity}
+
+            </div>
+
+
+            <div class="price">
+
+                $${subtotal.toLocaleString()}
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* ==================================================
+   返回搜尋
+================================================== */
+
+function backToSearch() {
+
+
+    document
+        .getElementById("orderPage")
+        .style.display = "none";
+
+
+    document
+        .getElementById("searchPage")
+        .style.display = "block";
 
 }
 
