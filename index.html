@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>盤老板海鮮水產｜訂單查詢</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f4f6f8;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                "Microsoft JhengHei",
+                Arial,
+                sans-serif;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        /* ===== 標題 ===== */
+
+        .header {
+            text-align: center;
+            padding: 30px 10px 25px;
+        }
+
+        .logo {
+            font-size: 52px;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 27px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            margin-top: 8px;
+            color: #777;
+            font-size: 15px;
+        }
+
+        /* ===== 查詢區 ===== */
+
+        .search-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .search-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .search-description {
+            font-size: 14px;
+            color: #777;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #d9d9d9;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        input:focus {
+            border-color: #555;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #222;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* ===== 查詢結果 ===== */
+
+        #result {
+            margin-top: 20px;
+        }
+
+        .result-header {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .customer-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .result-count {
+            margin-top: 5px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* ===== 訂單卡片 ===== */
+
+        .order-card {
+            background: white;
+            border-radius: 15px;
+            padding: 18px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-info {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .price {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* ===== 狀態 ===== */
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .arrived {
+            background: #e8f7ed;
+            color: #16803c;
+        }
+
+        .waiting {
+            background: #fff4dc;
+            color: #9a6500;
+        }
+
+        /* ===== 金額 ===== */
+
+        .total-card {
+            background: #222;
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .total-title {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .total-price {
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        /* ===== 找不到 ===== */
+
+        .not-found {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            color: #777;
+        }
+
+        .not-found-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        /* ===== 底部 ===== */
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #999;
+            line-height: 1.7;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- ==================== -->
+    <!-- 網站標題 -->
+    <!-- ==================== -->
+
+    <div class="header">
+
+        <div class="logo">
+            🦀
+        </div>
+
+        <h1>
+            盤老板海鮮水產
+        </h1>
+
+        <div class="subtitle">
+            線上訂單查詢
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================== -->
+    <!-- 查詢區 -->
+    <!-- ==================== -->
+
+    <div class="search-card">
+
+        <div class="search-title">
+            🔍 查詢我的訂單
+        </div>
+
+        <div class="search-description">
+
+            請輸入您下單時使用的
+            <b>姓名或 LINE 暱稱</b>。
+
+            <br>
+
+            不需要輸入電話或其他資料。
+
+        </div>
+
+
+        <label>
+            姓名 / LINE 暱稱
+        </label>
+
+
+        <input
+            type="text"
+            id="customerName"
+            placeholder="例如：王小明"
+            autocomplete="off"
+        >
+
+
+        <button onclick="searchOrder()">
+
+            🔍 查詢訂單
+
+        </button>
+
+    </div>
+
+
+
+    <!-- ==================== -->
+    <!-- 查詢結果 -->
+    <!-- ==================== -->
+
+    <div id="result"></div>
+
+
+
+    <!-- ==================== -->
+    <!-- 頁尾 -->
+    <!-- ==================== -->
+
+    <div class="footer">
+
+        盤老板海鮮水產<br>
+
+        訂單資料僅供查詢使用
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* ==================================================
+   測試訂單資料
+
+   目前先用假資料測試網站。
+
+   等網站完成後，
+   這裡會改成真正的飛比+1訂單資料。
+================================================== */
+
+
+const orders = [
+
+    {
+        customer: "王小明",
+        product: "紅蟳",
+        specification: "280g",
+        quantity: 2,
+        price: 280,
+        status: "已到貨"
+    },
+
+    {
+        customer: "王小明",
+        product: "大草蝦",
+        specification: "31/40",
+        quantity: 2,
+        price: 350,
+        status: "已到貨"
+    },
+
+    {
+        customer: "王小明",
+        product: "北海道干貝",
+        specification: "S級",
+        quantity: 1,
+        price: 650,
+        status: "尚未到貨"
+    },
+
+    {
+        customer: "小美",
+        product: "阿根廷紅蝦",
+        specification: "2L",
+        quantity: 1,
+        price: 850,
+        status: "尚未到貨"
+    }
+
+];
+
+
+
+/* ==================================================
+   查詢訂單
+================================================== */
+
+function searchOrder() {
+
+
+    const input =
+        document
+        .getElementById("customerName")
+        .value
+        .trim();
+
+
+    const result =
+        document
+        .getElementById("result");
+
+
+    /* 沒有輸入 */
+
+    if (input === "") {
+
+        result.innerHTML = `
+
+            <div class="not-found">
+
+                <div class="not-found-icon">
+                    🔍
+                </div>
+
+                <div>
+                    請先輸入姓名或 LINE 暱稱
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    /* ==================================================
+       不分大小寫搜尋
+    ================================================== */
+
+    const keyword =
+        input.toLowerCase();
+
+
+    const matchedOrders =
+        orders.filter(function(order) {
+
+            return order.customer
+                .toLowerCase()
+                .includes(keyword);
+
+        });
+
+
+
+    /* ==================================================
+       找不到
+    ================================================== */
+
+    if (matchedOrders.length === 0) {
+
+        result.innerHTML = `
+
+            <div class="not-found">
+
+                <div class="not-found-icon">
+                    😢
+                </div>
+
+                <div>
+                    找不到符合的訂單
+                </div>
+
+                <br>
+
+                <small>
+                    請確認您輸入的是下單時使用的姓名或 LINE 暱稱
+                </small>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    /* ==================================================
+       計算總金額
+    ================================================== */
+
+    let total = 0;
+
+
+    matchedOrders.forEach(function(order) {
+
+        total +=
+            order.quantity *
+            order.price;
+
+    });
+
+
+
+    /* ==================================================
+       產生訂單內容
+    ================================================== */
+
+    let html = `
+
+        <div class="result-header">
+
+            <div class="customer-name">
+
+                ${matchedOrders[0].customer} 您好 👋
+
+            </div>
+
+            <div class="result-count">
+
+                找到 ${matchedOrders.length} 項訂購商品
+
+            </div>
+
+        </div>
+
+    `;
+
+
+
+    /* ==================================================
+       商品卡片
+    ================================================== */
+
+    matchedOrders.forEach(function(order) {
+
+
+        const subtotal =
+            order.quantity *
+            order.price;
+
+
+        let statusClass = "waiting";
+
+
+        if (order.status === "已到貨") {
+
+            statusClass = "arrived";
+
+        }
+
+
+        html += `
+
+            <div class="order-card">
+
+                <div>
+
+                    <span class="status ${statusClass}">
+
+                        ${order.status}
+
+                    </span>
+
+                </div>
+
+
+                <div class="product-name">
+
+                    ${order.product}
+
+                </div>
+
+
+                <div class="product-info">
+
+                    規格：${order.specification}
+
+                    <br>
+
+                    數量：${order.quantity}
+
+                    <br>
+
+                    單價：$${order.price.toLocaleString()}
+
+                </div>
+
+
+                <div class="price">
+
+                    小計 $${subtotal.toLocaleString()}
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+
+
+    /* ==================================================
+       總金額
+    ================================================== */
+
+    html += `
+
+        <div class="total-card">
+
+            <div class="total-title">
+
+                訂單總金額
+
+            </div>
+
+            <div class="total-price">
+
+                $${total.toLocaleString()}
+
+            </div>
+
+        </div>
+
+    `;
+
+
+
+    result.innerHTML = html;
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
