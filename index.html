@@ -682,15 +682,44 @@ let customers = [];
 
 async function loadCustomers() {
   try {
-    const response = await fetch("./orders.json?v=" + Date.now());
-
+const response = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSoWiY3VB1WaQj5AWN9R_ThsyXVHlJKR_8uYX6sA8FrVnUh2f48df7KPXjlwmDI5F_9i2OzjqkkXawI/pub?output=csv");
     if (!response.ok) {
       throw new Error("讀取 orders.json 失敗");
     }
 
-    const data = await response.json();
+const csv = await response.text();
 
-    customers = data.customers || [];
+const rows = csv.split(/\r?\n/).map(row => row.split(","));
+
+const headers = rows[0];
+
+customers = [];
+
+rows.slice(1).forEach(row => {
+  if (!row[0]) return;
+
+  const customerName = row[0].trim();
+
+  let customer = customers.find(c => c.id === customerName);
+
+  if (!customer) {
+    customer = {
+      id: customerName,
+      orders: []
+    };
+
+    customers.push(customer);
+  }
+
+  customer.orders.push({
+    product: row[1]?.trim() || "",
+    specification: row[2]?.trim() || "",
+    quantity: Number(row[3]) || 0,
+    price: Number(row[5]) || 0,
+    subtotal: (Number(row[3]) || 0) * (Number(row[5]) || 0),
+    status: row[6]?.trim() || ""
+  });
+});
 
     console.log("訂單資料載入成功：", customers.length, "位會員");
 
