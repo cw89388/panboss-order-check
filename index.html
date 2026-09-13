@@ -715,6 +715,7 @@ rows.slice(1).forEach(row => {
     product: row[1]?.trim() || "",
     specification: row[2]?.trim() || "",
     quantity: Number(row[3]) || 0,
+    arrivedQuantity: Number(row[4]) || 0,
     price: Number(row[5]) || 0,
     subtotal: (Number(row[3]) || 0) * (Number(row[5]) || 0),
     status: row[6]?.trim() || ""
