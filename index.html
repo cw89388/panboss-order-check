@@ -912,7 +912,7 @@ function showOrders(index) {
     const arrivedOrders =
         customer.orders.filter(function(order) {
 
-            return order.status === "已到貨";
+    return Number(order.arrivedQuantity) > 0;
 
         });
 
@@ -1151,7 +1151,7 @@ function createOrderCard(
                 |
 
                 數量：
-                ${order.quantity}
+                ${order.arrivedQuantity} / ${order.quantity}
 
             </div>
 
